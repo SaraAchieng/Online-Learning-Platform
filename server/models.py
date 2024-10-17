@@ -20,7 +20,7 @@ class Course(db.Model):
     instructor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     status = db.Column(db.String(50), default='Pending')  # 'Pending', 'Approved'
 
-# class Enrollment(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-#     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+class Enrollment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
