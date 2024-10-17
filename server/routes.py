@@ -20,10 +20,16 @@ def register():
 def login():
     data = request.json
     user = User.query.filter_by(username=data['username']).first()
-    if user and user.check_password(data['password']):
-        access_token = create_access_token(identity={'username': user.username, 'role': user.role})
-        return jsonify(access_token=access_token), 200
-    return jsonify({'message': 'Invalid credentials'}), 401
+    if user:
+        if user.check_password(data['password']):
+            access_token = create_access_token(identity={'username': user.username, 'role': user.role})
+            return jsonify(access_token=access_token), 200
+        return jsonify({'message': 'Invalid credentials'}), 401
+    return jsonify({'message': 'User not found'}), 404
+
+
+
+
 
 # Courses - Instructors can create courses, students can view approved courses
 @api_blueprint.route('/courses', methods=['GET', 'POST'])
